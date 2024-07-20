@@ -100,7 +100,7 @@ class Scanner:
         return False
     
     def identifier(self):
-        while self.is_alpha_numeric(self,self.peek()):
+        while self.is_alpha_numeric(self.peek()):
             self.advance()
         
         self.add_token("IDENTIFIER")
