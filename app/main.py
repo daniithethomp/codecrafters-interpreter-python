@@ -13,7 +13,7 @@ def main():
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)
 
-    invalid_tokens = [""]
+    error = False
 
     with open(filename) as file:
         file_contents = file.read()
@@ -42,9 +42,11 @@ def main():
                 print("SEMICOLON ; null")
             case _:
                 print("[line 1] Error: Unexpected character: " + c, file=sys.stderr)
+                error = True
         
     print("EOF  null") # Placeholder, remove this line when implementing the scanner
-
+    if error:
+        exit(65)
 
 if __name__ == "__main__":
     main()
