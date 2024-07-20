@@ -13,6 +13,25 @@ class Token:
     
 
 class Scanner:
+
+    reserved_words = {'and' : 'AND',
+                      'class':'CLASS',
+                      'else':'ELSE',
+                      'false':'FALSE',
+                      'for':'FOR',
+                      'fun':'FUN',
+                      'if':'IF',
+                      'nil':'NIL',
+                      'or':'OR',
+                      'print':'PRINT',
+                      'return':'RETURN',
+                      'super':'SUPER',
+                      'this':'THIS',
+                      'true':'TRUE',
+                      'var':'VAR',
+                      'while':'WHILE'
+                    }
+
     def __init__(self, source):
         self.source = source
         self.tokens = []
@@ -103,7 +122,12 @@ class Scanner:
         while self.is_alpha_numeric(self.peek()):
             self.advance()
         
-        self.add_token("IDENTIFIER")
+        text = self.source[self.start : self.current]
+        type = self.reserved_words.get(text)
+        if type == None:
+            type = "IDENTIFIER"
+
+        self.add_token(type)
 
     def is_alpha_numeric(self,c):
         if self.is_digit(c) or self.is_alpha(c):
