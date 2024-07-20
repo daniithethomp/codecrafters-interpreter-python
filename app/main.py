@@ -40,6 +40,8 @@ def main():
                 print("MINUS - null")
             case ";":
                 print("SEMICOLON ; null")
+            case "==":
+                print("EQUAL_EQUAL == null")
             case _:
                 print("[line 1] Error: Unexpected character: " + c, file=sys.stderr)
                 error = True
