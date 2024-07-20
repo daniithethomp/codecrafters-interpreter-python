@@ -74,6 +74,10 @@ class Scanner:
     
     def error(self, message):
         self.errors.append(f"[line {self.line}] Error: {message}")
+    
+    def advance(self):
+        self.current += 1
+        return self.source[self.current - 1]
 
 def main():
     if len(sys.argv) < 3:
