@@ -75,19 +75,31 @@ class Scanner:
                 else:
                     self.add_token("LESS")
             case "/":
-                if not self.match("/"):
+                if self.match("/"):
+                    while self.peek() != '\n' and not self.is_at_end():
+                        self.advance()
+                else:
                     self.add_token("SLASH")
+            case ' ', '\r', '\t':
+                next
+            case '\n':
+                self.line += 1
             case _:
                 self.error(f"Unexpected character: {c}")
 
     def match(self, expected):
-        if self.current >= len(self.source):
+        if self.is_at_end():
             return False
         if self.source[self.current] != expected:
             return False
         
         self.current += 1
         return True
+    
+    def peek(self):
+        if self.is_at_end():
+            return '\0'
+        return self.source[self.current]
     
     def add_token(self, type, literal=None):
         token = self.source[self.start : self.current]
