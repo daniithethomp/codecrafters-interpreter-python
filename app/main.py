@@ -93,7 +93,7 @@ class Scanner:
                     self.error(f"Unexpected character: {c}")
 
     def isdigit(self,c):
-        if int(c) >= 0 and int(c) <= 9:
+        if c >= '0' and c <= '9':
             return True
         return False
 
