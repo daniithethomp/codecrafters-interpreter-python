@@ -22,7 +22,6 @@ class Scanner:
         self.errors = []
 
     def is_at_end(self):
-        print(self.current >= len(self.source))
         return self.current >= len(self.source)
 
     def scan_tokens(self):
@@ -99,7 +98,7 @@ def main():
         file_contents = file.read()
 
     scanner = Scanner(file_contents)
-    tokens, errors = scanner.scan_tokens
+    tokens, errors = scanner.scan_tokens()
 
     for token in tokens:
         print(token)
