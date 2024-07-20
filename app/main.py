@@ -52,6 +52,7 @@ class Scanner:
             case ";":
                 self.add_token("SEMICOLON")
             case "=":
+                print("test")
                 if self.match("="):
                     self.add_token("EQUAL_EQUAl")
                 else:
@@ -60,7 +61,6 @@ class Scanner:
                 self.error(f"Unexpected character: {c}")
 
     def match(self, expected):
-        print("test")
         if self.current >= len(self.source):
             return False
         if self.source[self.current] != expected:
