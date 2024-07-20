@@ -13,44 +13,92 @@ def main():
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)
 
-    error = False
-
     with open(filename) as file:
         file_contents = file.read()
 
-    for c in file_contents:
-        match c:
-            case "(":
-                print("LEFT_PAREN ( null")
-            case ")":
-                print("RIGHT_PAREN ) null")
-            case "{":
-                print("LEFT_BRACE { null")
-            case "}":
-                print("RIGHT_BRACE } null")
-            case "*":
-                print("STAR * null")
-            case ".":
-                print("DOT . null")
-            case ",":
-                print("COMMA , null")
-            case "+":
-                print("PLUS + null")
-            case "-":
-                print("MINUS - null")
-            case ";":
-                print("SEMICOLON ; null")
-            case "==":
-                print("EQUAL_EQUAL == null")
-            case "=":
-                print("EQUAL = null")
-            case _:
-                print("[line 1] Error: Unexpected character: " + c, file=sys.stderr)
-                error = True
-        
-    print("EOF  null") # Placeholder, remove this line when implementing the scanner
-    if error:
-        exit(65)
+    scanner = Scanner(file_contents)
+    tokens, errors = scanner.scan_tokens
+
+    for token in tokens:
+        print(token)
+
+    for error in errors:
+        print(error, file=sys.stderr)
 
 if __name__ == "__main__":
     main()
+
+class Token:
+    def __init__(self, type, lexeme, literal, line):
+        self.type = type
+        self.lexeme = lexeme
+        self.literaly = literal
+        self.line = line
+    
+    def __str__(self):
+        literal_str = "null" if self.literal is None else str(self.literal)
+        return f"{self.type} {self.lexeme} {literal_str}"
+    
+
+class Scanner:
+    def __init__(self, source):
+        self.source = source
+        self.tokens = []
+        self.start = 0
+        self.current = 0
+        self.line = 1
+        self.errors = []
+
+    def scan_tokens(self):
+        while not self.current >= len(self.source):
+            self.start = self.current
+            self.scan_token()
+        self.tokens.append(Token("EOF", "", None, self.line))
+        return self.tokens, self.errors
+    
+    def scan_token(self):
+        c = self.advance()
+        match c:
+            case "(":
+                self.add_token("LEFT_PAREN")
+            case ")":
+                self.add_token("RIGHT_PAREN")
+            case "{":
+                self.add_token("LEFT_BRACE")
+            case "}":
+                self.add_token("RIGHT_BRACE")
+            case "*":
+                self.add_token("STAR")
+            case ".":
+                self.add_token("DOT")
+            case ",":
+                self.add_token("COMMA")
+            case "+":
+                self.add_token("PLUS")
+            case "-":
+                self.add_token("MINUS")
+            case ";":
+                self.add_token("SEMICOLON")
+            case "=":
+                if self.match("="):
+                    self.add_token("EQUAL_EQUAl")
+                else:
+                    self.add_token("EQUAL")
+            case _:
+                self.error(f"Unexpected character: {c}")
+
+    def match(self, expected):
+        if self.current >= len(self.source):
+            return False
+        if self.source[self.current] != expected:
+            return False
+        
+        self.current += 1
+        return True
+    
+    def add_token(self, token, literal=None):
+        token = self.source[self.start : self.current]
+        self.tokens.append(Token(type, token, literal, self.line))
+    
+    def error(self, message):
+        self.errors.append(f"[line {self.line}] Error: {message}")
