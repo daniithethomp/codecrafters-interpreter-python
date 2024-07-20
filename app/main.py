@@ -33,6 +33,10 @@ def main():
             print("COMMA , null")
         if c == "+":
             print("PLUS + null")
+        if c == "-":
+            print("MINUS - null")
+        if c == ";":
+            print("SEMI_COLON ; null")
     print("EOF  null") # Placeholder, remove this line when implementing the scanner
 
 
