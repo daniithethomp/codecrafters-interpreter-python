@@ -80,7 +80,7 @@ class Scanner:
                         self.advance()
                 else:
                     self.add_token("SLASH")
-            case ' ', '\r', '\t':
+            case ' ' | '\r' | '\t':
                 next
             case '\n':
                 self.line += 1
