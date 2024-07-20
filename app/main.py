@@ -61,6 +61,7 @@ class Scanner:
 
     def match(self, expected):
         if self.current >= len(self.source):
+            print("test")
             return False
         if self.source[self.current] != expected:
             return False
@@ -102,6 +103,9 @@ def main():
 
     for error in errors:
         print(error, file=sys.stderr)
+
+    if errors:
+        exit(65)
 
 if __name__ == "__main__":
     main()
