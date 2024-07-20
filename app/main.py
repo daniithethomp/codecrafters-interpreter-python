@@ -22,6 +22,7 @@ class Scanner:
         self.errors = []
 
     def is_at_end(self):
+        print(self.current >= len(self.source))
         return self.current >= len(self.source)
 
     def scan_tokens(self):
