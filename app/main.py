@@ -87,24 +87,42 @@ class Scanner:
             case '"':
                 self.string()
             case _:
-                if self.isdigit(c):
+                if self.is_digit(c):
                     self.number()
+                elif self.is_alpha(c):
+                    self.identifier()
                 else:
                     self.error(f"Unexpected character: {c}")
 
-    def isdigit(self,c):
+    def is_alpha(self,c):
+        if (c >= 'a' and c <= 'z') or (c >= 'A' and c <= 'Z') or c == '_':
+            return True
+        return False
+    
+    def identifier(self):
+        while self.is_alpha_numeric(self,self.peek()):
+            self.advance()
+        
+        self.add_token("IDENTIFIER")
+
+    def is_alpha_numeric(self,c):
+        if self.is_digit(c) or self.is_alpha(c):
+            return True
+        return False
+
+    def is_digit(self,c):
         if c >= '0' and c <= '9':
             return True
         return False
 
     def number(self):
-        while self.peek().isdigit():
+        while self.is_digit(self.peek()):
             self.advance()
         
-        if self.peek() == '.' and self.peekNext().isdigit():
+        if self.peek() == '.' and self.is_digit(self.peekNext()):
             self.advance()
 
-            while self.peek().isdigit():
+            while self.is_digit(self.peek()):
                 self.advance()
 
         self.add_token('NUMBER', float(self.source[self.start : self.current]))
