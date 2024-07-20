@@ -74,6 +74,9 @@ class Scanner:
                     self.add_token("LESS_EQUAL")
                 else:
                     self.add_token("LESS")
+            case "/":
+                if not self.match("/"):
+                    self.add_token("SLASH")
             case _:
                 self.error(f"Unexpected character: {c}")
 
