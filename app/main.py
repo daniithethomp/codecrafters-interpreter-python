@@ -101,7 +101,7 @@ class Scanner:
         
         self.advance()
 
-        value = self.source[self.start :: self.current]
+        value = self.source[self.start+1 : self.current]
         self.add_token('STRING', value)
 
     def match(self, expected):
