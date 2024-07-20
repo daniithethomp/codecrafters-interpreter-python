@@ -84,8 +84,25 @@ class Scanner:
                 next
             case '\n':
                 self.line += 1
+            case '"':
+                self.string()
             case _:
                 self.error(f"Unexpected character: {c}")
+
+    def string(self):
+        while self.peek() != '"' and not self.is_at_end():
+            if self.peek() == '\n':
+                self.line += 1
+            self.advance()
+        
+        if self.is_at_end():
+            self.error("Unterminated string.")
+            return
+        
+        self.advance()
+
+        value = self.source[self.start : self.current]
+        self.add_token('STRING', value)
 
     def match(self, expected):
         if self.is_at_end():
