@@ -60,8 +60,8 @@ class Scanner:
                 self.error(f"Unexpected character: {c}")
 
     def match(self, expected):
+        print("test")
         if self.current >= len(self.source):
-            print("test")
             return False
         if self.source[self.current] != expected:
             return False
