@@ -14,7 +14,6 @@ class Token:
 
 class Scanner:
     def __init__(self, source):
-        print("test")
         self.source = source
         self.tokens = []
         self.start = 0
@@ -24,6 +23,7 @@ class Scanner:
 
     def scan_tokens(self):
         while not self.current >= len(self.source):
+            print("test")
             self.start = self.current
             self.scan_token()
         self.tokens.append(Token("EOF", "", None, self.line))
