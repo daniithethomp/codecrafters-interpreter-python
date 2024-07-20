@@ -36,7 +36,7 @@ def main():
         if c == "-":
             print("MINUS - null")
         if c == ";":
-            print("SEMI_COLON ; null")
+            print("SEMICOLON ; null")
     print("EOF  null") # Placeholder, remove this line when implementing the scanner
 
 
