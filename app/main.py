@@ -64,6 +64,16 @@ class Scanner:
                     self.add_token("BANG_EQUAL")
                 else:
                     self.add_token("BANG")
+            case ">":
+                if self.match("="):
+                    self.add_token("GREATER_EQUAL")
+                else:
+                    self.add_token("GREATER")
+            case "<":
+                if self.match("="):
+                    self.add_token("LESS_EQUAL")
+                else:
+                    self.add_token("LESS")
             case _:
                 self.error(f"Unexpected character: {c}")
 
