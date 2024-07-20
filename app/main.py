@@ -14,6 +14,7 @@ class Token:
 
 class Scanner:
     def __init__(self, source):
+        print("test")
         self.source = source
         self.tokens = []
         self.start = 0
@@ -52,7 +53,6 @@ class Scanner:
             case ";":
                 self.add_token("SEMICOLON")
             case "=":
-                print("test")
                 if self.match("="):
                     self.add_token("EQUAL_EQUAl")
                 else:
