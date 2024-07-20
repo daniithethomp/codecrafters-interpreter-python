@@ -56,7 +56,7 @@ class Scanner:
                 self.add_token("SEMICOLON")
             case "=":
                 if self.match("="):
-                    self.add_token("EQUAL_EQUAl")
+                    self.add_token("EQUAL_EQUAL")
                 else:
                     self.add_token("EQUAL")
             case _:
