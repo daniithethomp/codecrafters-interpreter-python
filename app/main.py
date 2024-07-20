@@ -59,6 +59,11 @@ class Scanner:
                     self.add_token("EQUAL_EQUAL")
                 else:
                     self.add_token("EQUAL")
+            case "!":
+                if self.match("="):
+                    self.add_token("BANG_EQUAL")
+                else:
+                    self.add_token("BANG")
             case _:
                 self.error(f"Unexpected character: {c}")
 
