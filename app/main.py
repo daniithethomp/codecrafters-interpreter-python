@@ -21,9 +21,11 @@ class Scanner:
         self.line = 1
         self.errors = []
 
+    def is_at_end(self):
+        return self.current >= len(self.source)
+
     def scan_tokens(self):
-        while not self.current >= len(self.source):
-            print("test")
+        while not self.is_at_end():
             self.start = self.current
             self.scan_token()
         self.tokens.append(Token("EOF", "", None, self.line))
