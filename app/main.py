@@ -25,6 +25,14 @@ def main():
             print("LEFT_BRACE { null")
         if c == "}":
             print("RIGHT_BRACE } null")
+        if c == "*":
+            print("STAR * null")
+        if c == ".":
+            print("DOT . null")
+        if c == ",":
+            print("COMMA , null")
+        if c == "+":
+            print("PLUS + null")
     print("EOF  null") # Placeholder, remove this line when implementing the scanner
 
 
