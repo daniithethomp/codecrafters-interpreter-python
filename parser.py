@@ -12,7 +12,7 @@ def Literal(expr):
     return str(expr).lower()
 
 def Grouping(expr):
-    return f'(group #{expr})'
+    return f"(group #{expr})"
 
 class Parser:
     
