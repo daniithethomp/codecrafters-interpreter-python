@@ -1,10 +1,11 @@
 from token_ import Token
+import sys
 
 def Binary(left, operator, right):
-    return f"(#{operator} #{left} #{right})"
+    return f"({operator} {left} {right})"
 
 def Unary(operator, right):
-    return f"(#{operator} #{right})"
+    return f"({operator} {right})"
 
 def Literal(expr):
     if expr == None:
@@ -12,7 +13,7 @@ def Literal(expr):
     return str(expr).lower()
 
 def Grouping(expr):
-    return f"(group #{expr})"
+    return f"(group {expr})"
 
 class Parser:
     
@@ -75,8 +76,10 @@ class Parser:
         
         if self.match(["LEFT_PAREN"]):
             expr = self.expression()
-            self.consume("RIGHT_PAREN","Expect ')' after expression.")
+            self.consume("RIGHT_PAREN","Unmatched parentheses.")
             return Grouping(expr)
+        
+        self.error(self.peek(), "Expect expression")
     
     def term(self):
         expr = self.factor()
@@ -119,8 +122,8 @@ class Parser:
     def consume(self, type, message):
         if(self.check(type)):
             return self.advance()
-        self.error(message)
+        self.error(self.peek(), message)
         
-    def error(self, message):
-        self.errors.append(f"[line {self.line}] Error: {message}")
+    def error(self, token, message):
+        self.errors.append(f"[line {token.line}] Error: {message}")
         

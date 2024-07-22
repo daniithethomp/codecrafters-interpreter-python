@@ -35,6 +35,11 @@ def main():
         
         parser = Parser(tokens)
         expression = parser.expression()
+        for error in parser.errors:
+            print(error, file=sys.stderr)
+        if parser.errors != []:
+            exit(65)
+        
         print(expression)
     else:
         print(f"Unknown command: {command}", file=sys.stderr)
