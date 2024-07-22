@@ -34,6 +34,8 @@ def main():
         tokens, errors = scanner.scan_tokens()
         
         parser = Parser(tokens)
+        expression = parser.expression()
+        print(expression)
     else:
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)

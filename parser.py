@@ -9,7 +9,7 @@ def Unary(operator, right):
 def Literal(expr):
     if expr == None:
         return "nil"
-    return str(expr)
+    return str(expr).lower()
 
 def Grouping(expr):
     return f'("group" #{expr})'
@@ -19,6 +19,7 @@ class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
         self.current = 0
+        self.errors = []
 
     def expression(self):
         return self.equality()
@@ -114,3 +115,12 @@ class Parser:
     
     def previous(self):
         return self.tokens[self.current - 1]
+    
+    def consume(self, type, message):
+        if(self.check(type)):
+            return self.advance()
+        self.error(message)
+        
+    def error(self, message):
+        self.errors.append(f"[line {self.line}] Error: {message}")
+        
