@@ -5,7 +5,7 @@ def Binary(left, operator, right):
     return f"({operator} {left} {right})"
 
 def Unary(operator, right):
-    return f"({operator} {right})"
+    return f"({operator.lexeme} {right})"
 
 def Literal(expr):
     if expr == None:
