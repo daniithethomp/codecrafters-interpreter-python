@@ -2,7 +2,7 @@ from token_ import Token
 import sys
 
 def Binary(left, operator, right):
-    return f"({operator} {left} {right})"
+    return f"({operator.lexeme} {left} {right})"
 
 def Unary(operator, right):
     return f"({operator.lexeme} {right})"
