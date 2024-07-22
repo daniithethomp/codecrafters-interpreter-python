@@ -1,4 +1,4 @@
-from token import Token
+from .token import Token
 
 def Binary(left, operator, right):
     return f"(#{operator} #{left} #{right})"
